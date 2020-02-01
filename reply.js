@@ -1,5 +1,5 @@
 const { parsePayload, buildWhatsappReply, baseResponse } = require('./twilioUtils');
-const { setNumPlayers, getNumbers, getPlayers } = require('./db2');
+const { setNumPlayers, getNumbers, getPlayers } = require('./db');
 const { nextGameDay } = require('./util');
 const { notifyGameOn } = require('./notifications');
 const { REQUIRED_NUM_PLAYERS } = require('./constants');
