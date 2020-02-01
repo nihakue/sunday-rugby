@@ -8,9 +8,19 @@ if (process.env.NODE_ENV.toLowerCase() !== 'production') {
 }
 
 function unknown() {
-  const response = {
+  return {
       statusCode: 404,
   };
+}
+
+function ok(body="") {
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type':'text/xml'
+    },
+    body,
+  }
 }
 
 exports.handler = async (event) => {
@@ -26,12 +36,21 @@ exports.handler = async (event) => {
         return unknown();
     }
     
-    switch (path) {
+    try {
+      switch (path) {
         case '/reply':
-            return await reply(event);
+          const replyText = await reply(event);
+          console.log('responding to reply with: ', replyText);
+          return ok(replyText);
         case '/status':
-            return await status(event);
+          const statusText = await status(event);
+          console.log('responding to status with: ', statusText);
+          return ok(statusText);
         default:
-            return unknown();
+          return unknown();
+      }
+    } catch (e) {
+      console.error('something bad happened! ', e);
+      throw e;
     }
 };

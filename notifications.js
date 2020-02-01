@@ -3,7 +3,7 @@ const { isTestRun } = require('./util');
 
 
 function getPlayers() {
-  return isTestRun() ? ["whatsapp:+447719247449"] : 
+  return isTestRun() ? ["whatsapp:+447719247449", "whatsapp:+447752809677"] : 
   [
     "whatsapp:+447716786126",
     "whatsapp:+447593272165",
@@ -11,7 +11,7 @@ function getPlayers() {
     "whatsapp:+447858957440",
     "whatsapp:+17789886620",
     "whatsapp:+447719247449",
-    "whatsapp:+447752809677]",
+    "whatsapp:+447752809677",
   ]
 }
 
@@ -23,16 +23,14 @@ async function notifyGameOn(gameOn, numPlayers) {
         gameOn ? "GAME ON!" : "No game this week."
       } ${numPlayers} players confirmed so far."`
     });
-    console.log(message);
   }
 }
 
 async function askIfPlaying(player) {
   const message = await sendWhatsapp({
-    body: `Your Rugby appointment is coming up on Sunday@11, how many people do you have?`,
+    body: `Your Rugby appointment is coming up on Sunday@11, how many players are you bringing (including yourself)?`,
     to: player
   });
-  console.log(message);
 }
 
 async function askAll() {
