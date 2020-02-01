@@ -17,8 +17,8 @@ exports.reply = async (event) => {
     console.log(`Setting ${id}'s number of players for ${day} to ${newPlayers}`);
     await setNumPlayers(day, id, newPlayers);
     const newNumPlayers = await getNumbers(day);
-    console.log(`old: ${oldNumPlayers} new: ${newNumPlayers}`);
-    if (newNumPlayers + newPlayers >= REQUIRED_NUM_PLAYERS) {
+    console.log(`old: ${oldNumPlayers} new: ${newNumPlayers}, add: ${newPlayers}`);
+    if (newNumPlayers >= REQUIRED_NUM_PLAYERS) {
         await notifyGameOn(true, newNumPlayers);
         return;
     }

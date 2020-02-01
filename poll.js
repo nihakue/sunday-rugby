@@ -4,7 +4,7 @@ const { nextGameDay } = require('./util');
 const { REQUIRED_NUM_PLAYERS } = require('./constants');
 
 async function poll() {
-  if ((new Date()).getDay() === 6) {
+  if ((new Date()).getDay() === 7) {
     const numPlayers = await getNumbers(nextGameDay());
     if (numPlayers < REQUIRED_NUM_PLAYERS) {
       await notifyGameOn(false, numPlayers);

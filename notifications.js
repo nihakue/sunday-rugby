@@ -7,7 +7,7 @@ const players = [
   '+447719247449'
 ]
 
-async function notifyGameOn(gameOn=true, numPlayers) {
+async function notifyGameOn(gameOn, numPlayers) {
   for (const player of players) {
     const message = await client.messages
       .create({
