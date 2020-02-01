@@ -15,7 +15,7 @@ function buildReplyEvent({from, body}) {
 }
 
 async function testReply(message) {
-  const event = buildReplyEvent({from: 'whatsapp:+447719257449', body: message});
+  const event = buildReplyEvent({from: 'whatsapp:+447719247449', body: message});
   await handler(event);
 }
 

@@ -1,6 +1,5 @@
 const { parsePayload, buildWhatsappReply, baseResponse } = require('./twilioUtils');
-const { setNumPlayers, getNumbers, getPlayers } = require('./db');
-const { setNumPlayers: setNumPlayers2 } = require('./db2');
+const { setNumPlayers, getNumbers, getPlayers } = require('./db2');
 const { nextGameDay } = require('./util');
 const { notifyGameOn } = require('./notifications');
 const { REQUIRED_NUM_PLAYERS } = require('./constants');
@@ -9,7 +8,6 @@ async function setNumPlayersReply({day, to, oldNumPlayers, message}) {
   const newPlayers = parseInt(message, 10);
   console.log(`Setting ${to}'s number of players for ${day} to ${newPlayers}`);
   await setNumPlayers(day, to, newPlayers);
-  await setNumPlayers2(day, to, newPlayers);
   const newNumPlayers = await getNumbers(day);
   console.log(`old: ${oldNumPlayers} new: ${newNumPlayers}, add: ${newPlayers}`);
   if (newNumPlayers >= REQUIRED_NUM_PLAYERS) {

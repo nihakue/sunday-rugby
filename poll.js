@@ -1,5 +1,5 @@
 const { notifyGameOn, askAll } = require('./notifications');
-const { getNumbers } = require('./db');
+const { getNumbers } = require('./db2');
 const { nextGameDay } = require('./util');
 const { REQUIRED_NUM_PLAYERS } = require('./constants');
 
