@@ -13,6 +13,20 @@ function numbersPath(day, id, numPlayers) {
 }
 
 async function getNumbers(day) {
+  const players = await getPlayers();
+  return Object.values(players).reduce((prev, curr) => prev + curr, 0);
+}
+
+async function setNumPlayers(day, id, numPlayers) {
+  const response = await s3.putObject({
+    Body: JSON.stringify(''), 
+    Bucket: BUCKET,
+    Key: numbersPath(day, id, numPlayers),
+  }).promise();
+  console.log(response);
+}
+
+async function getPlayers() {
   const response = await s3
   .listObjectsV2({
     Bucket: BUCKET,
@@ -30,17 +44,8 @@ async function getNumbers(day) {
       return prev;
     }
     return {...prev, [player]: parseInt(count, 10)};
-  }, {})
-  return Object.values(players).reduce((prev, curr) => prev + curr, 0);
-}
-
-async function setNumPlayers(day, id, numPlayers) {
-  const response = await s3.putObject({
-    Body: JSON.stringify(''), 
-    Bucket: BUCKET,
-    Key: numbersPath(day, id, numPlayers),
-  }).promise();
-  console.log(response);
+  }, {});
+  return players;
 }
 
 module.exports = {

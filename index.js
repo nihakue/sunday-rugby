@@ -1,6 +1,7 @@
 const { reply } = require('./reply');
 const { status } = require('./status');
 const { poll } = require('./poll');
+const { setIsTestRun } = require('./util');
 
 if (process.env.NODE_ENV.toLowerCase() !== 'production') {
   require('dotenv').config();
@@ -13,11 +14,12 @@ function unknown() {
 }
 
 exports.handler = async (event) => {
-    // TODO implement
     const { path, httpMethod } = event;
+    console.log('processing event: ', event);
     
     if (event.source === 'aws.events') {
-        return await poll();
+      setIsTestRun(event["detail-type"].toLowerCase() === 'test');
+      return await poll();
     }
     
     if (httpMethod !== 'POST') {
