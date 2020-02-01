@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { handler } = require('./index');
-const { twilioWebhook } = require('./fixtures');
+const { twilioWebhook, cloudwatchTestEvent } = require('./fixtures');
 const { parsePayload } = require('./twilioUtils');
 const { setIsTestRun } = require('./util');
 
@@ -14,11 +14,25 @@ function buildReplyEvent({from, body}) {
   return {...twilioWebhook, body: Buffer.from(payload.toString()).toString('base64')};
 }
 
-async function test(message) {
+async function testReply(message) {
   const event = buildReplyEvent({from: 'whatsapp:+447719257449', body: message});
   await handler(event);
 }
 
+async function testNotify() {
+  await handler(cloudwatchTestEvent);
+}
+
 (async () => {
-  await test(process.argv[2]);
+  const command = process.argv[2];
+
+  if (!command) {
+    return;
+  }
+
+  if (command === 'notify') {
+    await testNotify();
+  }
+
+  await testReply(process.argv[2]);
 })();
