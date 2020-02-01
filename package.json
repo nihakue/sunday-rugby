@@ -1,0 +1,18 @@
+{
+  "name": "sundayRugby",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "twilio": "^3.39.3"
+  },
+  "scripts": {
+    "package": "rm -f function.zip && zip -r function.zip .",
+    "deploy": "aws --profile gabriel --region eu-west-1 lambda update-function-code --function-name sundayRugby --zip-file fileb://function.zip",
+    "release": "yarn package && yarn deploy"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.610.0",
+    "dotenv": "^8.2.0"
+  }
+}
