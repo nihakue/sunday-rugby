@@ -25,16 +25,14 @@ function getDateString(date) {
   return date.toISOString().split('T')[0];
 }
 
+let _isTestRun = false;
 function setIsTestRun(isTestRun=false) {
-  process.env['RUGBY_TEST_RUN'] = isTestRun;
+  console.log('istest', isTestRun);
+  return _isTestRun = Boolean(isTestRun);
 }
 
 function isTestRun() {
-  const testRunString = process.env['RUGBY_TEST_RUN'];
-  if (testRunString === 'undefined') {
-    return false;
-  }
-  return Boolean(testRunString);
+  return _isTestRun;
 }
 
 module.exports = {

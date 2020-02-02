@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { handler } = require('./index');
-const { twilioWebhook, cloudwatchTestEvent } = require('./fixtures');
+const { twilioWebhook, cloudwatchTestEvent, cloudwatchProdEvent } = require('./fixtures');
 const { parsePayload } = require('./twilioUtils');
 const { setIsTestRun } = require('./util');
 
@@ -19,10 +19,6 @@ async function testReply(message) {
   await handler(event);
 }
 
-async function testNotify() {
-  await handler(cloudwatchTestEvent);
-}
-
 (async () => {
   const command = process.argv[2];
 
@@ -30,9 +26,12 @@ async function testNotify() {
     return;
   }
 
-  if (command === 'notify') {
-    await testNotify();
+  if (command === 'notify:test') {
+    await handler(cloudwatchTestEvent);
+  } else if (command === 'notify:prod') {
+    await handler(cloudwatchProdEvent);
+  } else {
+    await testReply(process.argv[2]);
   }
 
-  await testReply(process.argv[2]);
 })();
