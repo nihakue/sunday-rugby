@@ -1,7 +1,7 @@
 const { parsePayload, buildWhatsappReply, baseResponse } = require('./twilioUtils');
 const { setNumPlayers, getNumbers, getPlayers } = require('./db');
 const { nextGameDay } = require('./util');
-const { notifyGameOn } = require('./notifications');
+const { notifyGameOn, askAll } = require('./notifications');
 const { REQUIRED_NUM_PLAYERS } = require('./constants');
 
 async function setNumPlayersReply({day, to, oldNumPlayers, message}) {
@@ -28,6 +28,11 @@ async function tellWhosPlaying({day, to, oldNumPlayers, message}) {
   return `${oldNumPlayers} confirmed players:\n${players.join(',\n')}`;
 }
 
+async function notifySecret({day, to, oldNumPlayers, message}) {
+  console.log('forcing an askAll call because the correct password was given');
+  await askAll();
+}
+
 exports.reply = async (event) => {
     const parsedPayload = parsePayload(event)
     const to = parsedPayload.get('From');
@@ -45,6 +50,10 @@ exports.reply = async (event) => {
         test: /^who/i,
         handler: tellWhosPlaying
       },
+      {
+        test: new RegExp(`^notify ${process.env.NOTIFY_PASSWORD}$`),
+        handler: notifySecret
+      }
     ]
 
     const handlers = allHandlers.filter(handler => handler.test.test(message));

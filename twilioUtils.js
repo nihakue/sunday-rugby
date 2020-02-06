@@ -29,8 +29,10 @@ async function sendWhatsapp({ to, body }) {
 }
 
 function buildWhatsappReply(response=baseResponse(), {body}) {
-  const message = response.message();
-  message.body(body);
+  if (body) {
+    const message = response.message();
+    message.body(body);
+  }
   return response;
 }
 

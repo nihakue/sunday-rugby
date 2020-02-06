@@ -20,7 +20,7 @@ async function testReply(message) {
 }
 
 (async () => {
-  const command = process.argv[2];
+  const command = process.argv.slice(2).join(' ');
 
   if (!command) {
     return;
@@ -31,7 +31,7 @@ async function testReply(message) {
   } else if (command === 'notify:prod') {
     await handler(cloudwatchProdEvent);
   } else {
-    await testReply(process.argv[2]);
+    await testReply(command);
   }
 
 })();
