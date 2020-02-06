@@ -1,5 +1,6 @@
 const { sendWhatsapp } = require('./twilioUtils');
-const { isTestRun } = require('./util');
+const { getPlayerNumbers } = require('./db');
+const { isTestRun, nextGameDay } = require('./util');
 
 
 function getPlayers() {
@@ -26,16 +27,19 @@ async function notifyGameOn(gameOn, numPlayers) {
   }
 }
 
-async function askIfPlaying(player) {
+async function askIfPlaying(player, numPlayers) {
   const message = await sendWhatsapp({
-    body: `Your Rugby appointment is coming up on Sunday@11, how many players are you bringing (including yourself)?`,
+    body: `Your Rugby appointment is coming up on Sunday@11${numPlayers > 0 ? ` and ${numPlayers} people have already confirmed` : ''}. How many players are you bringing (including yourself)?`,
     to: player
   });
 }
 
 async function askAll() {
+  const {total, players: confirmed} = await getPlayerNumbers(nextGameDay())
   for (const player of getPlayers()) {
-    await askIfPlaying(player);
+    if (!(player in confirmed)) {
+      await askIfPlaying(player, total);
+    }
   }
 }
 

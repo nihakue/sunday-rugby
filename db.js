@@ -13,6 +13,12 @@ async function getNumbers(day) {
   return Object.values(players).reduce((prev, curr) => prev + curr, 0);
 }
 
+async function getPlayerNumbers(day) {
+  const players = await getPlayers(day);
+  const total = Object.values(players).reduce((prev, curr) => prev + curr, 0);
+  return {total, players};
+}
+
 async function initializePlayers(day) {
   try {
     await ddb.update({
@@ -71,4 +77,5 @@ module.exports = {
     getNumbers,
     setNumPlayers,
     getPlayers,
+    getPlayerNumbers,
 }
