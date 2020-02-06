@@ -2,5 +2,5 @@ const { parsePayload } = require('./twilioUtils');
 
 exports.status = async (event) => {
     const parsedPayload = parsePayload(event)
-    console.log('status: ', parsedPayload.get('Body'));
+    console.log('status payload: ', parsedPayload);
 }

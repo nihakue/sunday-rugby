@@ -35,9 +35,14 @@ function isTestRun() {
   return _isTestRun;
 }
 
+function formatWhatsAppLink(player) {
+  return `https://wa.me/${player.split('whatsapp:+')[1]}`;
+}
+
 module.exports = {
   nextGameDay,
   setIsTestRun,
   isTestRun,
-  isGameTime
+  isGameTime,
+  formatWhatsAppLink,
 }

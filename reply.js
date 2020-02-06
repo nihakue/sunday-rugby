@@ -1,6 +1,6 @@
 const { parsePayload, buildWhatsappReply, baseResponse } = require('./twilioUtils');
 const { setNumPlayers, getNumbers, getPlayers } = require('./db');
-const { nextGameDay } = require('./util');
+const { nextGameDay, formatWhatsAppLink } = require('./util');
 const { notifyGameOn, askAll } = require('./notifications');
 const { REQUIRED_NUM_PLAYERS } = require('./constants');
 
@@ -25,7 +25,7 @@ async function tellWhosPlaying({day, to, oldNumPlayers, message}) {
   console.log('tell who is playing', day, to, oldNumPlayers, message);
   const playersObj = await getPlayers(day);
   const players = Object.keys(playersObj).map(player => `${player}: bringing ${playersObj[player]}`);
-  return `${oldNumPlayers} confirmed players:\n${players.join(',\n')}`;
+  return `${oldNumPlayers} confirmed players:\n${players.map(formatWhatsAppLink).join(',\n')}`;
 }
 
 async function notifySecret({day, to, oldNumPlayers, message}) {
