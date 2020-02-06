@@ -29,6 +29,7 @@ async function notifyGameOn(gameOn, numPlayers) {
 }
 
 async function askIfPlaying(player, numPlayers) {
+  console.log(`asking if ${player} is playing`);
   const message = await sendWhatsapp({
     body: `Your Rugby appointment is coming up on Sunday@11${numPlayers > 0 ? ` and ${numPlayers} people have already confirmed` : ''}. How many players are you bringing (including yourself)?`,
     to: player
@@ -40,6 +41,8 @@ async function askAll() {
   for (const player of getPlayers()) {
     if (!(player in confirmed) || player === GABRIEL) {
       await askIfPlaying(player, total);
+    } else {
+      console.log(`not asking ${player} since they've already responded`)
     }
   }
 }
