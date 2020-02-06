@@ -38,7 +38,7 @@ async function askIfPlaying(player, numPlayers) {
 async function askAll() {
   const {total, players: confirmed} = await getPlayerNumbers(nextGameDay())
   for (const player of getPlayers()) {
-    if (!(player in confirmed || player === GABRIEL)) {
+    if (!(player in confirmed) || player === GABRIEL) {
       await askIfPlaying(player, total);
     }
   }
