@@ -2,9 +2,10 @@ const { sendWhatsapp } = require('./twilioUtils');
 const { getPlayerNumbers } = require('./db');
 const { isTestRun, nextGameDay } = require('./util');
 
-
+const GABRIEL = "whatsapp:+447719247449";
+const ROBYN = "whatsapp:+447752809677";
 function getPlayers() {
-  return isTestRun() ? ["whatsapp:+447719247449", "whatsapp:+447752809677"] : 
+  return isTestRun() ? [GABRIEL, ROBYN] : 
   [
     "whatsapp:+447716786126",
     "whatsapp:+447593272165",
@@ -37,7 +38,7 @@ async function askIfPlaying(player, numPlayers) {
 async function askAll() {
   const {total, players: confirmed} = await getPlayerNumbers(nextGameDay())
   for (const player of getPlayers()) {
-    if (!(player in confirmed)) {
+    if (!(player in confirmed || player === GABRIEL)) {
       await askIfPlaying(player, total);
     }
   }
