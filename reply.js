@@ -28,7 +28,7 @@ async function tellWhosPlaying({day, to, oldNumPlayers, message}) {
   return `${oldNumPlayers} confirmed players:\n${players.map(formatWhatsAppLink).join(',\n')}`;
 }
 
-async function notifySecret({day, to, oldNumPlayers, message}) {
+async function notifySecret() {
   console.log('forcing an askAll call because the correct password was given');
   await askAll();
 }

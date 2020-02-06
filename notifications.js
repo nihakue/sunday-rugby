@@ -12,8 +12,8 @@ function getPlayers() {
     "whatsapp:+447784462184",
     "whatsapp:+447858957440",
     "whatsapp:+17789886620",
-    "whatsapp:+447719247449",
-    "whatsapp:+447752809677",
+    GABRIEL,
+    ROBYN,
   ]
 }
 
