@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { handler } = require('./index');
 const { twilioWebhook, cloudwatchTestEvent, cloudwatchProdEvent } = require('./fixtures');
-const { parsePayload } = require('./twilioUtils');
+const { parsePayload, sendWhatsapp } = require('./twilioUtils');
 const { setIsTestRun } = require('./util');
 
 setIsTestRun(true);
@@ -19,19 +19,27 @@ async function testReply(message) {
   await handler(event);
 }
 
+async function testTwilio(command) {
+  return await sendWhatsapp({to: command[0], body: command[1]});
+}
+
 (async () => {
-  const command = process.argv.slice(2).join(' ');
+  const command = process.argv[2];
+  const args = process.argv.slice(3);
 
   if (!command) {
     return;
   }
 
-  if (command === 'notify:test') {
-    await handler(cloudwatchTestEvent);
-  } else if (command === 'notify:prod') {
-    await handler(cloudwatchProdEvent);
-  } else {
-    await testReply(command);
+  switch (command) {
+    case 'notify:test':
+      return await handler(cloudwatchTestEvent);
+    case 'notify:prod':
+      return await handler(cloudwatchProdEvent);
+    case 'twilio':
+      return await testTwilio(args);
+    default:
+      return await testReply(command);
   }
 
 })();
