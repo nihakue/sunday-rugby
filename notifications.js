@@ -24,7 +24,7 @@ async function notifyGameOn(gameOn, numPlayers) {
       to: player,
       body: `Your Rugby code is "${
         gameOn ? "GAME ON!" : "No game this week."
-      } ${numPlayers} players confirmed so far."`
+      }". ${numPlayers} players confirmed so far.`
     });
   }
 }
