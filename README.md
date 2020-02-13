@@ -1,5 +1,7 @@
 # Sunday Rugby
 
+![Deploy to Lambda](https://github.com/nihakue/sunday-rugby/workflows/Deploy%20to%20Lambda/badge.svg)
+
 This is a little Twilio chatbot I hacked together to help organize a weekly Rugby game. I noticed that even though we had a set time each week we played, every week we had to figure out if there were enough numbers to play. This bot asks each member of the group a couple of days before gameday if they can make it (along with the weather forecast and current confirmed numbers).
 
 ## What does it look like?
