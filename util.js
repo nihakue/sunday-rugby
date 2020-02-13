@@ -21,6 +21,10 @@ function nextGameDay() {
   return getDateString(nextGameDate());
 }
 
+function nextGameDateTime() {
+  return new Date(`${nextGameDay()}T11:00:00Z`);
+}
+
 function getDateString(date) {
   return date.toISOString().split('T')[0];
 }
@@ -45,4 +49,5 @@ module.exports = {
   isTestRun,
   isGameTime,
   formatWhatsAppLink,
+  nextGameDateTime,
 }
