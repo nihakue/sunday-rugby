@@ -9,6 +9,7 @@
   "scripts": {
     "package": "rm -f function.zip && zip -r function.zip .",
     "deploy": "aws --profile gabriel --region eu-west-1 lambda update-function-code --function-name sundayRugby --zip-file fileb://function.zip",
+    "deploy-action": "aws --region eu-west-1 lambda update-function-code --function-name sundayRugby --zip-file fileb://function.zip",
     "release": "yarn package && yarn deploy"
   },
   "devDependencies": {
