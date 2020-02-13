@@ -52,3 +52,4 @@ At some point if this proves useful I will put all the infra into cloudformation
 3. DynamoDB table called 'sunday-rugby'
 4. Cloudwatch Events to invoke on a schedule
 5. All associated IAM roles etc.
+6. A Twilio account and number with WhatsApp configured
