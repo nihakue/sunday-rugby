@@ -7,7 +7,7 @@
     "twilio": "^3.39.3"
   },
   "scripts": {
-    "package": "rm -f function.zip && zip -r function.zip .",
+    "package": "rm -f function.zip && zip -r function.zip . > /dev/null",
     "deploy": "aws --region eu-west-1 lambda update-function-code --function-name sundayRugby --zip-file fileb://function.zip > /dev/null",
     "release": "yarn package && yarn deploy"
   },
