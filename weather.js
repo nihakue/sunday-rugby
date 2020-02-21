@@ -82,9 +82,7 @@ async function weatherForDate(dateTime, cityId=EDINBURGH_ID) {
 }
 
 function formatWeatherString(weather) {
-  return `Forecast is for: "${weather.description}"
-Wind: ${(weather.wind * 2.237).toFixed(2)} mph
-Temp: ${weather.temp} °C`
+  return `Forecast is for: "${weather.description}". Wind: ${(weather.wind * 2.237).toFixed(2)} mph. Temp: ${weather.temp} °C`
 }
 
 // (async function() {

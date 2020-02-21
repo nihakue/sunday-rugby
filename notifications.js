@@ -8,11 +8,6 @@ const ROBYN = "whatsapp:+447752809677";
 function getPlayers() {
   return isTestRun() ? [GABRIEL, ROBYN] : 
   [
-    "whatsapp:+447716786126",
-    "whatsapp:+447593272165",
-    "whatsapp:+447784462184",
-    "whatsapp:+447858957440",
-    "whatsapp:+17789886620",
     GABRIEL,
     ROBYN,
   ]
@@ -32,9 +27,7 @@ async function notifyGameOn(gameOn, numPlayers) {
 async function askIfPlaying(player, numPlayers, forecast) {
   console.log(`asking if ${player} is playing`);
   const message = await sendWhatsapp({
-    body: `Your appointment is coming up on RugbySunday at 11:00${numPlayers > 0 ? ` and ${numPlayers} players have already confirmed` : ''}.
-How many players are you bringing (including yourself)?
-${forecast}`,
+    body: `Your appointment is coming up on RugbySunday at 11:00${numPlayers > 0 ? ` and ${numPlayers} players have already confirmed` : ''}. How many players are you bringing (including yourself)? ${forecast}`,
     to: player
   });
 }
