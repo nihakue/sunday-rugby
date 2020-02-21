@@ -8,6 +8,11 @@ const ROBYN = "whatsapp:+447752809677";
 function getPlayers() {
   return isTestRun() ? [GABRIEL, ROBYN] : 
   [
+    "whatsapp:+447716786126",
+    "whatsapp:+447593272165",
+    "whatsapp:+447784462184",
+    "whatsapp:+447858957440",
+    "whatsapp:+17789886620",
     GABRIEL,
     ROBYN,
   ]
